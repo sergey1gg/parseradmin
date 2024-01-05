@@ -1,113 +1,139 @@
-import Image from 'next/image'
+'use client'
+import { useEffect, useState } from "react"
 
+interface Setting {
+  setting_key: string;
+  setting_value: string;
+}
 export default function Home() {
+  
+  const [settingsList, setSettingsList]=useState<any>()
+  const [username, setUsername]=useState<string>("")
+  const [settings, setSettings] = useState<Setting[] | undefined>();
+  useEffect(()=>{
+    getSettings().then((res)=>{setSettingsList(res); setSettings(res.settings)})
+  },[])
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+<main className="flex flex-col mt-2 text-sm">
+  <div className=" grid grid-cols-2">
+  <div className="">
+      <h3 className=" font-semibold">username или ссылка-приглашение</h3>
+      <input type="text" className=" border-black border-2" value={username} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setUsername(e.target.value)}/>
+      <button  className=" bg-sky-500 p-1 text-white" onClick={()=>{username !=="" && handleAddPublic(username, setSettingsList, setUsername)}}>Добавить</button>
+    <div className="">
+      <h3 className="mt-5 font-semibold">Username каналов</h3>
+      {settingsList ? (
+        settingsList.usernames.map((user: any, index: number) => (
+          <div key={user.id} className="p-1">
+            <span className="">{index + 1}) {user.username} </span>
+            <button className="bg-red-600 p-1 text-white" onClick={()=>handleDelete(user.id, setSettingsList)}>Удалить</button>
+          </div>
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
+          </div>
+    </div>
+    <div className="flex flex-col">
+      <h3 className=" font-semibold">Settings</h3>
+      {settings ? (
+        settings.map((user: any, index: number) => (
+          <div key={index} className="p-1 inline-block">
+            <span className=""> {user.setting_key} </span>
+            <input type="text" value={user.setting_value} onChange={(e) => {
+          const updatedSettings = [...settings];
+          updatedSettings[index].setting_value = e.target.value;
+          setSettings(updatedSettings);
+          setVars(user.setting_key, user.setting_value)
+        }} className="border-2 w-auto"/>
+          </div>
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
+      <span>Similar posts: количество совпадений с исходным {'>'} N</span>
+      <br/>
+      <span>time_diff: время отслеживания поста/сек</span>
+      <br/>
+      <span>similar_percent: процент совпадений /100</span>
+    </div>
+    </div>
+  </main>
   )
 }
+
+
+const getSettings = async () => {
+  try {
+    const res = await fetch(`/api/settings`, {
+      method: "GET"
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
+};
+
+const handleDelete = async (idToSend: number, setSettingsList: React.Dispatch<any>) => {
+  try {
+    await fetch(`/api/settings`, {
+      method: "POST",
+      body: JSON.stringify({
+        id: idToSend
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    const updatedSettings = await getSettings();
+    setSettingsList(updatedSettings);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const handleAddPublic = async (username: string, setSettingsList: React.Dispatch<any>, setUsername: React.Dispatch<string>) => {
+  setUsername("")
+  try {
+    await fetch(`/api/usernames`, {
+      method: "POST",
+      body: JSON.stringify({
+        username: username
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    const updatedSettings = await getSettings();
+    setSettingsList(updatedSettings);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const setVars = async (setting_key: string, setting_value: string) => {
+  try {
+    await fetch(`/api/editvar`, {
+      method: "POST",
+      body: JSON.stringify({
+        setting_key,
+        setting_value
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
