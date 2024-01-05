@@ -66,7 +66,7 @@ export default function Home() {
 
 const getSettings = async () => {
   try {
-    const res = await fetch(`/api/settings`, {
+    const res = await fetch(`https://sever.spbd.io/settings.php`, {
       method: "GET"
     });
 
@@ -84,7 +84,7 @@ const getSettings = async () => {
 
 const handleDelete = async (idToSend: number, setSettingsList: React.Dispatch<any>) => {
   try {
-    await fetch(`/api/settings`, {
+    await fetch(`https://sever.spbd.io/settings.php`, {
       method: "POST",
       body: JSON.stringify({
         id: idToSend
@@ -104,7 +104,7 @@ const handleDelete = async (idToSend: number, setSettingsList: React.Dispatch<an
 const handleAddPublic = async (username: string, setSettingsList: React.Dispatch<any>, setUsername: React.Dispatch<string>) => {
   setUsername("")
   try {
-    await fetch(`/api/usernames`, {
+    await fetch(`https://sever.spbd.io/usernames.php`, {
       method: "POST",
       body: JSON.stringify({
         username: username
@@ -123,7 +123,7 @@ const handleAddPublic = async (username: string, setSettingsList: React.Dispatch
 
 const setVars = async (setting_key: string, setting_value: string) => {
   try {
-    await fetch(`/api/editvar`, {
+    await fetch(`https://sever.spbd.io/editvar.php`, {
       method: "POST",
       body: JSON.stringify({
         setting_key,
