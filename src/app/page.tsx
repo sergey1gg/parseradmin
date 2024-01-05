@@ -24,7 +24,7 @@ export default function Home() {
     <div className="">
       <h3 className="mt-5 font-semibold">Username каналов</h3>
       {settingsList ? (
-        settingsList.usernames.map((user: any, index: number) => (
+        settingsList?.usernames?.map((user: any, index: number) => (
           <div key={user.id} className="p-1">
             <span className="">{index + 1}) {user.username} </span>
             <button className="bg-red-600 p-1 text-white" onClick={()=>handleDelete(user.id, setSettingsList)}>Удалить</button>
@@ -38,7 +38,7 @@ export default function Home() {
     <div className="flex flex-col">
       <h3 className=" font-semibold">Settings</h3>
       {settings ? (
-        settings.map((user: any, index: number) => (
+        settings?.map((user: any, index: number) => (
           <div key={index} className="p-1 inline-block">
             <span className=""> {user.setting_key} </span>
             <input type="text" value={user.setting_value} onChange={(e) => {
