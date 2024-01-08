@@ -105,7 +105,8 @@ const handleDelete = async (idToSend: number, setSettingsList: React.Dispatch<an
 const handleAddPublic = async (username: string, setSettingsList: React.Dispatch<any>, setUsername: React.Dispatch<string>, settingsList: any) => {
 
   const usernamesArray = username.split(' ');
-  const duplicateUsernames = usernamesArray.filter((name) =>
+  const modifiedUsernames = usernamesArray.map((name) => modifyTelegramLink(name));
+  const duplicateUsernames = modifiedUsernames.filter((name) =>
     settingsList.usernames.some((user: any) => user.username === name)
   );
 
@@ -118,7 +119,7 @@ const handleAddPublic = async (username: string, setSettingsList: React.Dispatch
   }
 
   try {
-    const modifiedUsernames = usernamesArray.map((name) => modifyTelegramLink(name));
+    
     await fetch(`https://sever.spbd.io/usernames.php`, {
       method: "POST",
       body: JSON.stringify({
